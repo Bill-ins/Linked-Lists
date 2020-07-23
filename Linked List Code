@@ -1,0 +1,151 @@
+package linkedlistssauravshukla;
+public class LinkedList {
+
+
+    /*..................................Fields --- Variables.                   */
+
+    private int size;      // Declaring a variable size.
+    private Node head;      // Declaring a reference variable head.
+
+
+    /*..................................Fields --- Methods/Functions.           */
+
+
+    // Method or Function for printing all values in the list  :
+    public void print() {
+        Node node = head;
+        /* Iterating through each node until the iterate variable (Node) itself
+        * becomes null . */
+        while(node != null) {
+            System.out.println(node.getData() + " ");       // Printing the data of the nodes.
+            node = node.getNext();      // Updating the value of iterate to it's next reference (Node).
+        }
+    }
+
+    // Method or Function for returning the size of the list  :
+    public int size() {
+        return size;
+    }
+
+    // Method or Function for adding a node(or value) at first position in the list  :
+    public void push(int value) {
+        Node newnode = new Node(value,null);      // Creating a new Node.
+        newnode.setNext(head);     // Referring the newnode to first node (it can also be null) which the head is referring to.
+        head = newnode;     // Changing the reference point of head to newnode.
+        size++;     // When this function will be called the size variable will also be increased by 1.
+    }
+
+    //Method for adding a node(or value) at the end of the list  :
+    public void append(int value) {
+        Node newnode = new Node(value,null);      // Creating a new Node.
+        if(head == null) {
+            head = newnode;
+        }       // Checking if the head is null, and if that's true then referring the newnode to head.
+        else {
+            Node iterate = head;        // Declaring a reference variable of type Node and referring to the first Node.
+            /* Iterating through each node until the Next Node reference
+            * of iterate variable becomes null. */
+            while (iterate.getNext() != null) {
+                iterate = iterate.getNext();        // Updating the value of iterate to it's next reference (Node).
+            }
+            iterate.setNext(newnode);       // Referring the newnode created to the next reference(Node) of iterate variable.
+        }
+        size++;     // When this function will be called the size variable will also be increased by 1.
+    }
+
+    // Method or Function for adding a node(or value) at a given position in the list  :
+    public void insertAt(int position, int value) {
+        if(position == 1) {     // Checking if the position entered is 1.
+            push(value);        // Calling the push method.
+        }       /* If the position given is 1 then adding the node to the head of the list. */
+
+        /* Checking if the position entered is greater than 1 and less than size+1 and if that's true then adding
+        * value at the given position.*/
+        else if(position > 1 && position <= (size+1)) {
+            Node newnode = new Node(value,null);      // Creating a new Node.
+            Node traverse = head;       // Declaring a reference variable of type Node and referring to the first Node.
+            int i = 1;      // Declaring a loop variable and assigning 1 in it.
+            /* What we going to do is that first we will traverse through each node and stopping at previous
+            * node of the given position. Then getting it's next reference address and copying it to the
+            * next reference of the newnode created. After that we are able change the next reference address
+            * of the previous node to the new node created. Remember, sequence is the key here. */
+            while (i < (position - 1)) {        /* Iterating to a loop until the loop variable i reaches to position-1;
+                                                 * and terminate the loop after the value if i becomes exactly position-1 */
+                traverse = traverse.getNext();      // Updating the value of traverse to it's next reference (Node).
+                i++;        // Updating the loop variable i (increasing by one after each iteration).
+            }
+            newnode.setNext(traverse.getNext());        /* Referring the next reference of newnode exactly to the next
+                                                         * reference of traverse variable */
+            traverse.setNext(newnode);      // Changing the next reference of the traverse to the new node created.
+        }
+        else {       // Printing Error message if there is an invalid input or position.
+            System.out.println("Invalid Position ... [Position number - " + position + "]"); return; }
+        size++;     // When this function will be called the size variable will also be increased by 1.
+    }
+
+    // Method or Function for deleting first node :
+    public void deleteFirst(int position) {
+        if(head == null) {      // Checking if the head is null.
+            System.out.println("List is empty"); return;
+        }       // Showing an error message if the list is empty, then terminating the function/method.
+        else {
+            head = head.getNext();      // Changing the reference point of head to it's next node.
+            size--;     // When this function will be called the size variable will also be decreased by 1.
+        }
+    }
+
+    // Method or Function for deleting last node in the list :
+    public void deleteLast() {
+        if(head == null) {      // Checking if the head is null.
+            System.out.println("List is empty"); return;
+        }       // Showing an error message if the list is empty, then terminating the function/method.
+        else if(head.getNext() == null) {       // Checking if the second node is null (or if there is only one node).
+            head = null;        // Changing the reference point of head to null.
+        }       // Checking if there is only one node, if true then changing the reference point of head to null.
+        else {
+            Node traverse = head;       // Declaring a reference variable of type Node and referring to the first Node.
+            while(traverse.getNext().getNext() != null) {
+                traverse = traverse.getNext();
+            }
+            traverse.setNext(null);
+        }
+        size--;     // When this function will be called the size variable will also be decreased by 1.
+    }
+
+    // Method or Function for deleting a node in a given position :
+    public void deletePos(int position) {
+        if(head == null) {
+            System.out.println("List is empty"); return;
+        }
+        else if(position == 1) {
+            head = head.getNext();
+        }
+
+        else if (position <= size){
+            Node traverse = head;
+            int i = 1;
+            /* Here int the loop we are taking just the previous node of the node we wanna delete,
+             * then making the next node of that previous node to refer to the next node of the deletion node   */
+            while (i < (position - 1)) {
+                traverse = traverse.getNext();
+                i++;
+            }
+            Node prevNode = traverse;
+            Node deletionNode = prevNode.getNext();
+            Node nextNode = deletionNode.getNext();
+            prevNode.setNext(nextNode);
+        }
+        else {       // Printing Error message if there is an invalid input or position.
+            System.out.println("Invalid Position ... [Position number - " + position + "]"); return; }
+        size--;     // When this function will be called the size variable will also be decreased by 1.
+    }
+
+    // Method or Function for deleting the list :
+    public void deleteList() {
+        /* Here we are simply pointing or referring the head to null, it will break the link from all other Nodes
+        * that are */
+        head = null;
+    }
+}
+
+                
