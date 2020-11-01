@@ -122,10 +122,13 @@ public class LinkedList {
         }
 
         else if (position <= size){
+        
             Node traverse = head;
             int i = 1;
-            /* Here int the loop we are taking just the previous node of the node we wanna delete,
+            
+            /** Here int the loop we are taking just the previous node of the node we wanna delete,
              * then making the next node of that previous node to refer to the next node of the deletion node   */
+             
             while (i < (position - 1)) {
                 traverse = traverse.getNext();
                 i++;
@@ -142,8 +145,8 @@ public class LinkedList {
 
     // Method or Function for deleting the list :
     public void deleteList() {
-        /* Here we are simply pointing or referring the head to null, it will break the link from all other Nodes
-        * that are */
+        /** Here we are simply pointing or referring the head to null, it will break the link from all other Nodes
+        * that are available */
         head = null;
     }
 }
