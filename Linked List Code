@@ -126,7 +126,7 @@ public class LinkedList {
             Node traverse = head;
             int i = 1;
             
-            /** Here int the loop we are taking just the previous node of the node we wanna delete,
+            /** Here in the loop we are taking just the previous node of the node we wanna delete,
              * then making the next node of that previous node to refer to the next node of the deletion node   */
              
             while (i < (position - 1)) {
